@@ -1,0 +1,48 @@
+Replica Set:
+
+Replica set ensures that always there are those many pods(replicas) up and running.
+For ex: if replica set is set to 3 and if one pod goes down then Replica Set will spawn another pod either in the same worker node or any other available worker node. It is not gauranteed that each worker node will have one replica pod. 
+It may happen sometimes two replica pods are running in the same worker node.
+
+Daemon Set:
+
+In the case of Daemon set, it always ensures that one pod is always in running in each node.
+For ex: if a new node is added, then automatically the pod is spawned in it. If another node is brought down, then the pod in the node is automatically deleted and Daemon set will not try to spawn that pod in the existing nodes.
+
+Use case of Daemon set:
+
+If we need some pods to monitor each node, then we can use a Daemon set. 
+So it will monitor each node and send us the reports. Otherwise if we need any common logs to be collected on each node for the respective application pods, then Daemon set can be implemented. Even calico is applied as a Daemon set so it is spawned automatically in each worker node to providing the networking functionality.
+
+
+=================================================
+
+Creating a Deployment.yaml with Replica set as 1
+
+Inside the pod, Container is up and running with image:v1
+
+Now when we want to change the image:v1 to image:v2
+
+kubectl set image deployment/<deployment name> <name of the container>=<path of image:v2>
+
+once this command is issued, a new replica set with image:v2 will be created. Once the pod with the new image:v2 is up and running the old pod will get terminated.
+==================================================
+
+Deployed an application and it is listening on port 8000. If testing fails below might be the possible reasons that application is not reachable
+1. Port and target port defined in the yaml file has to be checked
+2. Image with which the replica set is running has to be checked
+3. Check the status of the pods
+4. Whether the service is applied? check the selector value
+
+====================================================
+
+
+
+
+
+
+
+
+
+
+
